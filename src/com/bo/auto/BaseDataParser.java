@@ -40,6 +40,7 @@ public class BaseDataParser {
 	public static void main(String[] args) 
 	{
 		BaseDataParser bdParser = new BaseDataParser();
+		PBIParser pbiParser = new PBIParser();
 		String tracks[][] = {WSS, EFS};
 		
 		for(int i = 0; i < tracks.length; i++)
@@ -63,6 +64,11 @@ public class BaseDataParser {
 			System.out.println("Resolved case metrics: ");
 			System.out.println(bdParser.getQuarterResolvedReq(tracks[i], yearQuarter));
 			System.out.println(bdParser.getQuarterResolvedRestore(tracks[i], yearQuarter));
+			
+			System.out.println("PBI metrics: ");
+			System.out.println(pbiParser.getCreated(tracks[i], yearQuarter));
+			System.out.println(pbiParser.getResolved(tracks[i], yearQuarter));
+			System.out.println(pbiParser.getBacklog(tracks[i])+"\n");
 		}
 	}
 

@@ -18,9 +18,7 @@ public class PBIParser {
 	FileInputStream excelFile;
 	Workbook workbook;
 	Sheet sheet;
-	static String WSS[] = {"GSE-CVC-FIN-WPR", "GSE-CVC-FIN-SSBR"};
-	static String EFS[] = {"GSE-CVC-FIN-EFS-EMPSERV", "GSE-CVC-FIN-EFS-STOCK"};
-	
+
 	PBIParser()
 	{
 		try
@@ -38,18 +36,8 @@ public class PBIParser {
             e.printStackTrace();
         }
 	}
-	
-	public static void main(String[] args)
-	{
-		PBIParser pbiParser = new PBIParser();
 
-		System.out.println("PBI metrics: ");
-		System.out.println(pbiParser.getCreated(EFS, "FY2017 Q4"));
-		System.out.println(pbiParser.getResolved(EFS, "FY2017 Q4"));
-		System.out.println(pbiParser.getBacklog(EFS));
-	}
-
-	private int getBacklog(String assGroup[])
+	int getBacklog(String assGroup[])
 	{
 		int count = 0;
 		Iterator<Row> rowIterator = sheet.iterator();
@@ -74,7 +62,7 @@ public class PBIParser {
 		return count;
 	}
 
-	private int getResolved(String assGroup[], String yearQuarter)
+	int getResolved(String assGroup[], String yearQuarter)
 	{
 		int count = 0;
 		Iterator<Row> rowIterator = sheet.iterator();
@@ -104,7 +92,7 @@ public class PBIParser {
 		return count;
 	}
 
-	private int getCreated(String assGroup[], String yearQuarter) {
+	int getCreated(String assGroup[], String yearQuarter) {
 		int count = 0;
 		Iterator<Row> rowIterator = sheet.iterator();
 		
