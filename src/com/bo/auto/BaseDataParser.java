@@ -56,6 +56,7 @@ public class BaseDataParser {
 		System.out.println("Resolved case metrics: ");
 		System.out.println(bdParser.getQuarterResolvedReq(WSS, "FY2017 Q4"));
 		System.out.println(bdParser.getQuarterResolvedRestore(WSS, "FY2017 Q4"));
+		
 	}
 
 	private int getQuarterResolvedRestore(String[] assGroup, String yearQuarter)

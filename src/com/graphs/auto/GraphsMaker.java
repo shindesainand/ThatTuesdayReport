@@ -73,7 +73,6 @@ public class GraphsMaker
 		System.out.println(graphFactory.requestRestoreMetrics);
 		System.out.println(graphFactory.pbiMetrics);
 		System.out.println(graphFactory.mttr70thPercentileMetrics);
-		
 	}
 
 	private HashMap<String, ArrayList<Integer>> makePBIMetricsGraph()
