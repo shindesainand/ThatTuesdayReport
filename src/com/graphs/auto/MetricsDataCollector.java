@@ -13,7 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.tracks.names.Constants;
 
-public class GraphsMaker 
+public class MetricsDataCollector
 {
 	private final String CHARTS_FILE_NAME = "C:\\Users\\saishind\\Pictures\\WSRTempReport.xlsx";
 	FileInputStream excelFile;
@@ -37,7 +37,7 @@ public class GraphsMaker
 	HashMap<String, ArrayList<Integer>> pbiMetrics = new HashMap<String, ArrayList<Integer>>();
 	HashMap<String, ArrayList<Double>> mttr70thPercentileMetrics = new HashMap<String, ArrayList<Double>>();
 	
-	GraphsMaker()
+	MetricsDataCollector()
 	{
 		try
 		{
@@ -58,21 +58,21 @@ public class GraphsMaker
 	
 	public static void main(String[] args)
 	{
-		GraphsMaker graphFactory = new GraphsMaker();
+		MetricsDataCollector dataCollector = new MetricsDataCollector();
 		
-		graphFactory.weekCaseMetrics = graphFactory.makeWeekCaseMetricsGraph();
-		graphFactory.caseAgeMetrics = graphFactory.makeCaseAgeGraph();
-		graphFactory.quarterCaseMetrics = graphFactory.makeQuarterCaseMetricsGraph();
-		graphFactory.requestRestoreMetrics = graphFactory.makeRequestRestoreGraph();
-		graphFactory.pbiMetrics = graphFactory.makePBIMetricsGraph();
-		graphFactory.mttr70thPercentileMetrics = graphFactory.make70thPercentileMTTRGraph();
+		dataCollector.weekCaseMetrics = dataCollector.makeWeekCaseMetricsGraph();
+		dataCollector.caseAgeMetrics = dataCollector.makeCaseAgeGraph();
+		dataCollector.quarterCaseMetrics = dataCollector.makeQuarterCaseMetricsGraph();
+		dataCollector.requestRestoreMetrics = dataCollector.makeRequestRestoreGraph();
+		dataCollector.pbiMetrics = dataCollector.makePBIMetricsGraph();
+		dataCollector.mttr70thPercentileMetrics = dataCollector.make70thPercentileMTTRGraph();
 		
-		System.out.println(graphFactory.weekCaseMetrics);
-		System.out.println(graphFactory.caseAgeMetrics);
-		System.out.println(graphFactory.quarterCaseMetrics);
-		System.out.println(graphFactory.requestRestoreMetrics);
-		System.out.println(graphFactory.pbiMetrics);
-		System.out.println(graphFactory.mttr70thPercentileMetrics);
+		System.out.println(dataCollector.weekCaseMetrics);
+		System.out.println(dataCollector.caseAgeMetrics);
+		System.out.println(dataCollector.quarterCaseMetrics);
+		System.out.println(dataCollector.requestRestoreMetrics);
+		System.out.println(dataCollector.pbiMetrics);
+		System.out.println(dataCollector.mttr70thPercentileMetrics);
 	}
 
 	private HashMap<String, ArrayList<Integer>> makePBIMetricsGraph()
@@ -113,7 +113,6 @@ public class GraphsMaker
 	{
 		int beginRow = 16;
 		int endRow = 18;
-		
 		HashMap<String, ArrayList<Integer>> hashMap = new HashMap<String, ArrayList<Integer>>();
 		
 		hashMap.put(Constants.compBenMgmnt, wsr.getCompBenMgmntData(compBenMgmntCol, beginRow, endRow));
@@ -131,7 +130,6 @@ public class GraphsMaker
 	{
 		int beginRow = 8;
 		int endRow = 12;
-		
 		HashMap<String, ArrayList<Integer>> hashMap = new HashMap<String, ArrayList<Integer>>();
 		
 		hashMap.put(Constants.compBenMgmnt, wsr.getCompBenMgmntData(compBenMgmntCol, beginRow, endRow));
