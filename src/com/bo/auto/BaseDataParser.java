@@ -10,7 +10,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class BaseDataParser {
 
-	private final String BASE_FILE_NAME = "C:\\Users\\saishind\\Pictures\\Incident Details Overall_R8_final_L1_L2_combined.xlsx";
+	private final String BASE_FILE_NAME = "C:\\Users\\sainand\\Music\\Incident Details Overall_R8_final_L1_L2_combined.xlsx"; //C:\\Users\\saishind\\Pictures\\Incident Details Overall_R8_final_L1_L2_combined.xlsx
 	FileInputStream excelFile;
 	Workbook workbook;
 	Sheet sheet;
@@ -54,7 +54,7 @@ public class BaseDataParser {
 			System.out.println("Case age frequencies: ");
 			for(int j = 0; j < 5; j++)
 			{
-				System.out.println(bdParser.getCaseAgeFreq(tracks[i], yearWeekQuarter)[i]);
+				System.out.println(bdParser.getCaseAgeFreq(tracks[i], yearWeekQuarter)[j]);
 			}
 			System.out.println("Quarter metrics: ");
 			System.out.println(bdParser.getQuarterCreated(tracks[i], yearQuarter));
