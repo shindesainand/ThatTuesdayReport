@@ -16,6 +16,8 @@ public class BaseDataParser {
 	Sheet sheet;
 	static String WSS[] = {"GSE-CVC-FIN-WPR", "GSE-CVC-FIN-SSBR", "GSE-L1-FM-WSS"};
 	static String EFS[] = {"GSE-CVC-FIN-EFS-EMPSERV", "GSE-CVC-FIN-EFS-STOCK", "GSE-L1-CF-EFS"};
+	static String yearWeekQuarter = "FY2017 Q4 WK07";
+	static String yearQuarter = "FY2017 Q4";
 	
 	BaseDataParser()
 	{
@@ -38,24 +40,30 @@ public class BaseDataParser {
 	public static void main(String[] args) 
 	{
 		BaseDataParser bdParser = new BaseDataParser();
+		String tracks[][] = {WSS, EFS};
 		
-		System.out.println("Week metrics: ");
-		System.out.println(bdParser.getWeekCreated(WSS, "FY2017 Q4 WK07"));
-		System.out.println(bdParser.getWeekResolved(WSS, "FY2017 Q4 WK07"));
-		System.out.println(bdParser.getWeekBacklog(WSS));
-		
-		System.out.println("Case age frequencies: ");
-		for(int i = 0; i < 5; i++)
-			System.out.println(bdParser.getCaseAgeFreq(WSS, "FY2017 Q4 WK07")[i]);
-		
-		System.out.println("Quarter metrics: ");
-		System.out.println(bdParser.getQuarterCreated(WSS, "FY2017 Q4"));
-		System.out.println(bdParser.getQuarterResolved(WSS, "FY2017 Q4"));
-		System.out.println(bdParser.getQuarterBacklog(WSS));
-		
-		System.out.println("Resolved case metrics: ");
-		System.out.println(bdParser.getQuarterResolvedReq(WSS, "FY2017 Q4"));
-		System.out.println(bdParser.getQuarterResolvedRestore(WSS, "FY2017 Q4"));
+		for(int i = 0; i < tracks.length; i++)
+		{
+			System.out.println("METRICS FOR : "+tracks[i][i] +" and co-tracks");
+			System.out.println("Week metrics: ");
+			System.out.println(bdParser.getWeekCreated(tracks[i], yearWeekQuarter));
+			System.out.println(bdParser.getWeekResolved(tracks[i], yearWeekQuarter));
+			System.out.println(bdParser.getWeekBacklog(tracks[i]));
+			
+			System.out.println("Case age frequencies: ");
+			for(int j = 0; j < 5; j++)
+			{
+				System.out.println(bdParser.getCaseAgeFreq(tracks[i], yearWeekQuarter)[i]);
+			}
+			System.out.println("Quarter metrics: ");
+			System.out.println(bdParser.getQuarterCreated(tracks[i], yearQuarter));
+			System.out.println(bdParser.getQuarterResolved(tracks[i], yearQuarter));
+			System.out.println(bdParser.getQuarterBacklog(tracks[i]));
+			
+			System.out.println("Resolved case metrics: ");
+			System.out.println(bdParser.getQuarterResolvedReq(tracks[i], yearQuarter));
+			System.out.println(bdParser.getQuarterResolvedRestore(tracks[i], yearQuarter));
+		}
 	}
 
 	private int getQuarterResolvedRestore(String[] assGroup, String yearQuarter)
