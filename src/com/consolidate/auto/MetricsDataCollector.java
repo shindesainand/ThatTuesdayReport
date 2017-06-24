@@ -1,24 +1,12 @@
 package com.consolidate.auto;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.tracks.names.Constants;
 
 public class MetricsDataCollector
 {
-	private final String CHARTS_FILE_NAME = "C:\\Users\\sainand\\Music\\WSRTempReport.xlsx";
-	FileInputStream excelFile;
-	Workbook workbook;
-	Sheet sheet;
 	WSRDataParser wsr;
 	int compBenMgmntCol = 1;
 	int workforceMgmntCol = 2;
@@ -30,52 +18,26 @@ public class MetricsDataCollector
 	int employeeLearningCol = 8;
 	int externalLearningCol = 9;
 	
-	HashMap<String, ArrayList<Integer>> weekCaseMetrics = new HashMap<String, ArrayList<Integer>>();
-	HashMap<String, ArrayList<Integer>> caseAgeMetrics = new HashMap<String, ArrayList<Integer>>();
-	HashMap<String, ArrayList<Integer>> quarterCaseMetrics = new HashMap<String, ArrayList<Integer>>();
-	HashMap<String, ArrayList<Integer>> requestRestoreMetrics = new HashMap<String, ArrayList<Integer>>();
-	HashMap<String, ArrayList<Integer>> pbiMetrics = new HashMap<String, ArrayList<Integer>>();
-	HashMap<String, ArrayList<Double>> mttr70thPercentileMetrics = new HashMap<String, ArrayList<Double>>();
+	public HashMap<String, ArrayList<Integer>> weekCaseMetrics = new HashMap<String, ArrayList<Integer>>();
+	public HashMap<String, ArrayList<Integer>> caseAgeMetrics = new HashMap<String, ArrayList<Integer>>();
+	public HashMap<String, ArrayList<Integer>> quarterCaseMetrics = new HashMap<String, ArrayList<Integer>>();
+	public HashMap<String, ArrayList<Integer>> requestRestoreMetrics = new HashMap<String, ArrayList<Integer>>();
+	public HashMap<String, ArrayList<Integer>> pbiMetrics = new HashMap<String, ArrayList<Integer>>();
+	public HashMap<String, ArrayList<Double>> mttr70thPercentileMetrics = new HashMap<String, ArrayList<Double>>();
 	
-	MetricsDataCollector()
+	public MetricsDataCollector()
 	{
-		try
-		{
-			excelFile = new FileInputStream(new File(CHARTS_FILE_NAME));
-			workbook = new XSSFWorkbook(excelFile);
-			sheet = workbook.getSheetAt(0);
-			wsr = new WSRDataParser();
-		}
-		catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
-        }
-		catch (IOException e) 
-		{
-            e.printStackTrace();
-        }
+		wsr = new WSRDataParser();
+		
+		this.weekCaseMetrics = this.getWeekCaseMetrics();
+		this.caseAgeMetrics = this.getCaseAgeMetrics();
+		this.quarterCaseMetrics = this.getQuarterCaseMetrics();
+		this.requestRestoreMetrics = this.getRequestRestoreMetrics();
+		this.pbiMetrics = this.getPBIMetrics();
+		this.mttr70thPercentileMetrics = this.get70thPercentileMTTRMetrics();
 	}
 	
-	public static void main(String[] args)
-	{
-		MetricsDataCollector dataCollector = new MetricsDataCollector();
-		
-		dataCollector.weekCaseMetrics = dataCollector.makeWeekCaseMetricsGraph();
-		dataCollector.caseAgeMetrics = dataCollector.makeCaseAgeGraph();
-		dataCollector.quarterCaseMetrics = dataCollector.makeQuarterCaseMetricsGraph();
-		dataCollector.requestRestoreMetrics = dataCollector.makeRequestRestoreGraph();
-		dataCollector.pbiMetrics = dataCollector.makePBIMetricsGraph();
-		dataCollector.mttr70thPercentileMetrics = dataCollector.make70thPercentileMTTRGraph();
-		
-		System.out.println(dataCollector.weekCaseMetrics);
-		System.out.println(dataCollector.caseAgeMetrics);
-		System.out.println(dataCollector.quarterCaseMetrics);
-		System.out.println(dataCollector.requestRestoreMetrics);
-		System.out.println(dataCollector.pbiMetrics);
-		System.out.println(dataCollector.mttr70thPercentileMetrics);
-	}
-
-	private HashMap<String, ArrayList<Integer>> makePBIMetricsGraph()
+	private HashMap<String, ArrayList<Integer>> getPBIMetrics()
 	{
 		int beginRow = 25;
 		int endRow = 27;
@@ -92,7 +54,7 @@ public class MetricsDataCollector
 		return hashMap;
 	}
 
-	private HashMap<String, ArrayList<Integer>> makeRequestRestoreGraph()
+	private HashMap<String, ArrayList<Integer>> getRequestRestoreMetrics()
 	{
 		int beginRow = 21;
 		int endRow = 22;
@@ -109,7 +71,7 @@ public class MetricsDataCollector
 		return hashMap;
 	}
 
-	private HashMap<String, ArrayList<Integer>> makeQuarterCaseMetricsGraph()
+	private HashMap<String, ArrayList<Integer>> getQuarterCaseMetrics()
 	{
 		int beginRow = 16;
 		int endRow = 18;
@@ -126,7 +88,7 @@ public class MetricsDataCollector
 		return hashMap;
 	}
 
-	private HashMap<String, ArrayList<Integer>> makeCaseAgeGraph()
+	private HashMap<String, ArrayList<Integer>> getCaseAgeMetrics()
 	{
 		int beginRow = 8;
 		int endRow = 12;
@@ -143,7 +105,7 @@ public class MetricsDataCollector
 		return hashMap;
 	}
 
-	private HashMap<String, ArrayList<Integer>> makeWeekCaseMetricsGraph()
+	private HashMap<String, ArrayList<Integer>> getWeekCaseMetrics()
 	{
 		int beginRow = 2;
 		int endRow = 4;
@@ -160,7 +122,7 @@ public class MetricsDataCollector
 		return hashMap;
 	}
 	
-	private HashMap<String, ArrayList<Double>> make70thPercentileMTTRGraph()
+	private HashMap<String, ArrayList<Double>> get70thPercentileMTTRMetrics()
 	{
 		int beginRow = 34;
 		int endRow = 35;
