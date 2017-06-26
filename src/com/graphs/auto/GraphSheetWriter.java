@@ -20,7 +20,7 @@ public class GraphSheetWriter
 	 * Trailing whitespace after one of the track names in excel graphs file
 	 * Change PBI metrics table position in graphs template file
 	 * */
-	private final String CHARTS_FILE_NAME = "C:\\Users\\sainand\\Music\\WSR Charts.xlsx";
+	private final String CHARTS_FILE_NAME = "C:\\Users\\saishind\\Pictures\\WSR Charts.xlsx";
 	FileInputStream excelFile;
 	Workbook workbook;
 	Sheet sheet;
