@@ -236,7 +236,6 @@ public class BaseDataParser {
 		{
 			Row curRow = rowIterator.next();
 			Cell assignGrpName = curRow.getCell(56);
-			Cell incSubmitWeek = curRow.getCell(25);
 			Cell incStatus = curRow.getCell(21);
 			Cell incAge = curRow.getCell(66);
 			
@@ -245,15 +244,11 @@ public class BaseDataParser {
 				if(assignGrpName != null)
 					if(assignGrpName.getStringCellValue().equals(assGroup[i]))
 					{
-						if(incSubmitWeek != null)
-							if(incSubmitWeek.getStringCellValue().equals(yearWeekQuarter))
+						if(incStatus != null)
+							if(incStatus.getStringCellValue().equals("Assigned") || incStatus.getStringCellValue().equals("In Progress") || incStatus.getStringCellValue().equals("Pending"))
 							{
-								if(incStatus != null)
-									if(incStatus.getStringCellValue().equals("Assigned") || incStatus.getStringCellValue().equals("In Progress") || incStatus.getStringCellValue().equals("Pending"))
-									{
-										//System.out.println(deciFormat.format(incAge.getNumericCellValue()));
-										ages.add(Double.parseDouble(decimalFormat.format(incAge.getNumericCellValue())));
-									}
+								//System.out.println(decimalFormat.format(incAge.getNumericCellValue()));
+								ages.add(Double.parseDouble(decimalFormat.format(incAge.getNumericCellValue())));
 							}
 					}
 			}
