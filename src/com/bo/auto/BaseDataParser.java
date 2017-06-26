@@ -8,15 +8,19 @@ import java.util.Iterator;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class BaseDataParser {
-
+public class BaseDataParser
+{
+	/*
+	 * For every new week change yearWeekQuarter
+	 * For every new quarter change yearWeekQuarter
+	 */
 	private final String BASE_FILE_NAME = "C:\\Users\\saishind\\Pictures\\Incident Details Overall_R8_final_L1_L2_combined.xlsx";
 	FileInputStream excelFile;
 	Workbook workbook;
 	Sheet sheet;
 	static String WSS[] = {"GSE-CVC-FIN-WPR", "GSE-CVC-FIN-SSBR", "GSE-L1-FM-WSS"};
 	static String EFS[] = {"GSE-CVC-FIN-EFS-EMPSERV", "GSE-CVC-FIN-EFS-STOCK", "GSE-L1-CF-EFS"};
-	static String yearWeekQuarter = "FY2017 Q4 WK07";
+	static String yearWeekQuarter = "FY2017 Q4 WK08";
 	static String yearQuarter = "FY2017 Q4";
 	
 	BaseDataParser()
