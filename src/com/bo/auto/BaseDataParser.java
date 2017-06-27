@@ -20,7 +20,7 @@ public class BaseDataParser
 	Sheet sheet;
 	static String WSS[] = {"GSE-CVC-FIN-WPR", "GSE-CVC-FIN-SSBR", "GSE-L1-FM-WSS"};
 	static String EFS[] = {"GSE-CVC-FIN-EFS-EMPSERV", "GSE-CVC-FIN-EFS-STOCK", "GSE-L1-CF-EFS"};
-	static String yearWeekQuarter = "FY2017 Q4 WK08";
+	static String yearQuarterWeek = "FY2017 Q4 WK08";
 	static String yearQuarter = "FY2017 Q4";
 	
 	BaseDataParser()
@@ -51,14 +51,14 @@ public class BaseDataParser
 		{
 			System.out.println("METRICS FOR : "+tracks[i][i] +" and co-tracks");
 			System.out.println("Week metrics: ");
-			System.out.println(bdParser.getWeekCreated(tracks[i], yearWeekQuarter));
-			System.out.println(bdParser.getWeekResolved(tracks[i], yearWeekQuarter));
+			System.out.println(bdParser.getWeekCreated(tracks[i], yearQuarterWeek));
+			System.out.println(bdParser.getWeekResolved(tracks[i], yearQuarterWeek));
 			System.out.println(bdParser.getWeekBacklog(tracks[i]));
 			
 			System.out.println("Case age frequencies: ");
 			for(int j = 0; j < 5; j++)
 			{
-				System.out.println(bdParser.getCaseAgeFreq(tracks[i], yearWeekQuarter)[j]);
+				System.out.println(bdParser.getCaseAgeFreq(tracks[i])[j]);
 			}
 			System.out.println("Quarter metrics: ");
 			System.out.println(bdParser.getQuarterCreated(tracks[i], yearQuarter));
@@ -229,7 +229,7 @@ public class BaseDataParser
 		return count;
 	}
 
-	private int[] getCaseAgeFreq(String[] assGroup, String yearWeekQuarter) 
+	private int[] getCaseAgeFreq(String[] assGroup) 
 	{
 		int caseAgeFreq[] = new int[5];
 		Iterator<Row> rowIterator = sheet.iterator();
@@ -302,7 +302,7 @@ public class BaseDataParser
 		return count;
 	}
 
-	private int getWeekResolved(String assGroup[], String yearWeekQuarter)
+	private int getWeekResolved(String assGroup[], String yearQuarterWeek)
 	{
 		int count = 0;
 		Iterator<Row> rowIterator = sheet.iterator();
@@ -320,7 +320,7 @@ public class BaseDataParser
 					if(assignGrpName.getStringCellValue().equals(assGroup[i]))
 					{
 						if(incResolvedWeek != null)
-							if(incResolvedWeek.getStringCellValue().equals(yearWeekQuarter))
+							if(incResolvedWeek.getStringCellValue().equals(yearQuarterWeek))
 							{
 								if(incStatus != null)
 									if(incStatus.getStringCellValue().equals("Closed") || incStatus.getStringCellValue().equals("Resolved"))
@@ -332,7 +332,7 @@ public class BaseDataParser
 		return count;
 	}
 
-	private int getWeekCreated(String assGroup[], String yearWeekQuarter) 
+	private int getWeekCreated(String assGroup[], String yearQuarterWeek) 
 	{
 		int count = 0;
 		Iterator<Row> rowIterator = sheet.iterator();
@@ -350,7 +350,7 @@ public class BaseDataParser
 					if(assignGrpName.getStringCellValue().equals(assGroup[i]))
 					{
 						if(incSubmitWeek != null)
-							if(incSubmitWeek.getStringCellValue().equals(yearWeekQuarter))
+							if(incSubmitWeek.getStringCellValue().equals(yearQuarterWeek))
 							{
 								if(incStatus != null)
 									if(!incStatus.getStringCellValue().equals("Cancelled"))
