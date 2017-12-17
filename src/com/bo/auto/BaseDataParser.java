@@ -23,7 +23,7 @@ public class BaseDataParser
 	static String yearQuarterWeek;// = "FY2018 Q1 WK01";
 	static String yearQuarter;// = yearQuarterWeek.substring(0, 8);
 	
-	BaseDataParser()
+	BaseDataParser() 
 	{
 		try 
 		{
