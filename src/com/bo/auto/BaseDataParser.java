@@ -71,10 +71,6 @@ public class BaseDataParser
 			System.out.println(bdParser.getQuarterResolved(tracks[i], yearQuarter));
 			System.out.println(bdParser.getQuarterBacklog(tracks[i]));
 			
-			/*System.out.println("Resolved case metrics: ");
-			System.out.println(bdParser.getQuarterResolvedReq(tracks[i], yearQuarter));
-			System.out.println(bdParser.getQuarterResolvedRestore(tracks[i], yearQuarter));*/
-			
 			System.out.println("PBI metrics: ");
 			System.out.println(pbiParser.getCreated(tracks[i], yearQuarter));
 			System.out.println(pbiParser.getResolved(tracks[i], yearQuarter));
