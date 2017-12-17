@@ -29,8 +29,8 @@ public class GraphsMaker
 		System.out.println(dataCollector.quarterCaseMetrics);
 		graphMaker.makeQuarterCaseMetricsGraph(dataCollector.quarterCaseMetrics);
 
-		System.out.println(dataCollector.requestRestoreMetrics);
-		graphMaker.makeReqRestoreMetricsGraph(dataCollector.requestRestoreMetrics);
+		/*System.out.println(dataCollector.requestRestoreMetrics);
+		graphMaker.makeReqRestoreMetricsGraph(dataCollector.requestRestoreMetrics);*/
 		
 		System.out.println(dataCollector.pbiMetrics);
 		graphMaker.makePBIMetricsGraph(dataCollector.pbiMetrics);

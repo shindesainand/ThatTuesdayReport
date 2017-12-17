@@ -21,7 +21,7 @@ public class BaseDataParser
 	static String WSS[] = {"GSE-CVC-FIN-WPR", "GSE-CVC-FIN-SSBR", "GSE-L1-FM-WSS", "GSE_Z4_Workforce_WSS_SME"};
 	static String EFS[] = {"GSE-CVC-FIN-EFS-EMPSERV", "GSE-CVC-FIN-EFS-STOCK", "GSE-L1-CF-EFS", "GSE-Z4-Workforce-EmpFin-SME", "GSE-Z4-Workforce-SD"};
 	static String yearQuarterWeek;// = "FY2018 Q1 WK01";
-	static String yearQuarter;// = yearQuarterWeek.substring(0, 8);
+	static String yearQuarter;// = yearQuarterWeek.substring(0, 9);
 	
 	BaseDataParser() 
 	{
@@ -54,7 +54,7 @@ public class BaseDataParser
 		
 		for(int i = 0; i < tracks.length; i++)
 		{
-			System.out.println("METRICS FOR : "+tracks[i][i] +" and co-tracks");
+			System.out.println("METRICS FOR : "+tracks[i][i] +" type tracks");
 			System.out.println("Week metrics: ");
 			System.out.println(bdParser.getWeekCreated(tracks[i], yearQuarterWeek));
 			System.out.println(bdParser.getWeekResolved(tracks[i], yearQuarterWeek));
@@ -78,11 +78,19 @@ public class BaseDataParser
 			System.out.println("PBI metrics: ");
 			System.out.println(pbiParser.getCreated(tracks[i], yearQuarter));
 			System.out.println(pbiParser.getResolved(tracks[i], yearQuarter));
-			System.out.println(pbiParser.getBacklog(tracks[i])+"\n");
+			System.out.println(pbiParser.getBacklog(tracks[i]));
+			
+			System.out.println("MTTR 70th percentile metrics: ");
+			System.out.println("\nMTTR for Week: ");
+			bdParser.getWeekMTTR(tracks[i], yearQuarterWeek);
+			System.out.println("\nMTTR for Quarter: ");
+			bdParser.getQuarterMTTR(tracks[i], yearQuarter);
+			
+			System.out.println("\n------------------------------------------------------------------------\n");
 		}
 	}
 
-	private int getQuarterResolvedRestore(String[] assGroup, String yearQuarter)
+	private int getQuarterMTTR(String[] assGroup, String yearQuarter)
 	{
 		int count = 0;
 		Iterator<Row> rowIterator = sheet.iterator();
@@ -93,7 +101,7 @@ public class BaseDataParser
 			Cell assignGrpName = curRow.getCell(48); //56
 			Cell incResolvedWeek = curRow.getCell(27); //27
 			Cell incStatus = curRow.getCell(17); //21
-			Cell incServiceType = curRow.getCell(4); //
+			Cell incResTimeOverallDays = curRow.getCell(60); //
 			
 			for(int i = 0; i < assGroup.length; i++)
 			{
@@ -103,8 +111,8 @@ public class BaseDataParser
 					{
 						if(incStatus != null && incStatus.getStringCellValue().equals("Closed") || incStatus.getStringCellValue().equals("Resolved"))
 						{
-							if(incServiceType.getStringCellValue().equals("User Service Restoration"))
-								count++;
+							if(incResTimeOverallDays != null)
+								System.out.println(incResTimeOverallDays.getNumericCellValue());
 						}
 					}
 				}
@@ -113,9 +121,8 @@ public class BaseDataParser
 		return count;
 	}
 	
-	private int getQuarterResolvedReq(String[] assGroup, String yearQuarter)
+	private void getWeekMTTR(String[] assGroup, String yearQuarterWeek)
 	{
-		int count = 0;
 		Iterator<Row> rowIterator = sheet.iterator();
 		
 		while(rowIterator.hasNext())
@@ -124,24 +131,23 @@ public class BaseDataParser
 			Cell assignGrpName = curRow.getCell(48); //56
 			Cell incResolvedWeek = curRow.getCell(27); //27
 			Cell incStatus = curRow.getCell(17); //21
-			Cell incServiceType = curRow.getCell(4); //
+			Cell incResTimeOverallDays = curRow.getCell(60);
 			
 			for(int i = 0; i < assGroup.length; i++)
 			{
 				if(assignGrpName != null && assignGrpName.getStringCellValue().equals(assGroup[i]))
 				{
-					if(incResolvedWeek != null && incResolvedWeek.getStringCellValue().contains(yearQuarter))
+					if(incResolvedWeek != null && incResolvedWeek.getStringCellValue().contains(yearQuarterWeek))
 					{
 						if(incStatus != null && incStatus.getStringCellValue().equals("Closed") || incStatus.getStringCellValue().equals("Resolved"))
 						{
-							if(incServiceType.getStringCellValue().equals("User Service Request"))
-								count++;
+							if(incResTimeOverallDays != null)
+								System.out.println(incResTimeOverallDays.getNumericCellValue());
 						}
 					}
 				}
 			}
 		}
-		return count;
 	}
 
 	private int getQuarterBacklog(String[] assGroup)
